@@ -24,6 +24,41 @@ rel=stylesheet type=text/css href="../css/style.css">
     })
 </script>
 --%>
+  <script type="text/javascript">
+      var timeobj;
+      $(function(){
+          //发送验证码
+          $("#sendButton").click(function(){
+
+              $.post("sendCode",{"tel":$("#inputTel").val()},function(data){
+                  alert(data.result);
+                  if(data.result>0) {
+                      //安装定时
+                      timeobj=setInterval("goback()",1000);
+                      alert("发送验证码成功");
+                  }
+                  else
+                      alert("发送失败");
+              },"json");
+
+          });
+
+      });
+
+      //显示倒计时
+      var time=60;
+      function goback(){
+          time--;
+          if(time==0) {
+              $("#sendButton").val("重新发送");
+              time=60;
+              clearInterval(timeobj); //消除定时
+          }
+          else {
+              $("#sendButton").val(time);
+          }
+      }
+  </script>
 </HEAD>
 <BODY>
 <DIV id=header class=wrap>
@@ -53,6 +88,11 @@ rel=stylesheet type=text/css href="../css/style.css">
 						--></TBODY></TABLE>
 <DIV class=buttons> <INPUT  value=登陆 type=submit id="dl"> <INPUT onclick='document.location="regs.jsp"' value=注册 type=button>
 </DIV></DIV></FORM></DIV></DIV></DIV>
+<form action="" method="post" name="form3" >
+  手机号：<input type="text" name="inputTel" id="inputTel"><input type="button" name="dd" id="sendButton"  value="获取验证码"><br>
+  验证码：<input type="text" name="inputCode"  >
+  <input type="submit" value="登录">
+</form>
 <DIV id=footer class=wrap>
 <DL>
   <DT>青鸟租房 © 2018 北大青鸟 京ICP证1000001号</DT>

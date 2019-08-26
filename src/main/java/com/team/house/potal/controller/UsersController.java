@@ -61,7 +61,20 @@ public class UsersController {
                 httpSession.setMaxInactiveInterval(600);//6分钟
 
               return "redirect:getHouse";
-
-
         }
+
+    @RequestMapping("/login2")
+    public String  checkUserName(String inputCode, HttpSession httpSession){
+     //设置生成的验证码
+        String code = (String) httpSession.getAttribute("code");
+        //比较验证码
+        if (inputCode.equals(code)){
+            //通过用户手机号查询单个用户信息，并保存到session中
+            return "redirect:getHouse";
+        }else {
+            return "login";//返回登录界面
+        }
+
+    }
+
 }

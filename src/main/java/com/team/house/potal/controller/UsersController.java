@@ -63,6 +63,12 @@ public class UsersController {
               return "redirect:getHouse";
         }
 
+    /**
+     * 手机号验证登录
+      * @param inputCode
+     * @param httpSession
+     * @return
+     */
     @RequestMapping("/login2")
     public String  checkUserName(String inputCode, HttpSession httpSession){
      //设置生成的验证码
